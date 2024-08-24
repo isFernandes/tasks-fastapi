@@ -6,12 +6,14 @@ class Database:
         self.db_name = f"{db_name}.db" if db_name is not None else "tasks.db"
         [self.cursor, self.conn] = self.start_connection()
         self.cursor.execute(
-            """CREATE TABLE IF NOT EXISTS tasks(
-                                id INTEGER PRIMARY KEY AUTOINCREMENT,
-                                name TEXT NOT NULL,
-                                description TEXT NOT NULL,
-                                status BOOLEAN NOT NULL DEFAULT false
-                            )"""
+            """CREATE TABLE IF NOT EXISTS tasks (
+                  id INTEGER PRIMARY KEY AUTOINCREMENT,
+                  name TEXT NOT NULL,
+                  description TEXT NOT NULL,
+                  status INTEGER NOT NULL DEFAULT 0,  -- 0 = false, 1 = true
+                  createdAt DATETIME DEFAULT CURRENT_TIMESTAMP,
+                  updatedAt DATETIME DEFAULT CURRENT_TIMESTAMP
+                );"""
         )
         self.conn.commit()  # commit the changes
 
