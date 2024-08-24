@@ -40,7 +40,7 @@ class TaskService:
 
         fields_update = ",".join(query_parts)
 
-        query = f"""UPDATE tasks SET {fields_update} where id= {task_id}"""
+        query = f"""UPDATE tasks SET {fields_update}, updatedAt = CURRENT_TIMESTAMP where id= {task_id}"""
 
         self.db.execute_query(query)
 
